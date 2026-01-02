@@ -1,19 +1,20 @@
 {
-	"name": "n8n-nodes-<...>",
+	"name": "n8n-nodes-targetprocess",
 	"version": "0.1.0",
-	"description": "",
+	"description": "n8n node for Targetprocess",
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "https://n8n.io",
 	"keywords": [
-		"n8n-community-node-package"
+		"n8n-community-node-package",
+		"targetprocess"
 	],
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "itengineering",
+		"email": "itengineering@example.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/<...>/n8n-nodes-<...>.git"
+		"url": "https://github.com/tsonak/n8n-nodes-targetprocess.git"
 	},
 	"scripts": {
 		"build": "n8n-node build",
@@ -31,22 +32,24 @@
 		"n8nNodesApiVersion": 1,
 		"strict": true,
 		"credentials": [
-			"dist/credentials/GithubIssuesApi.credentials.js",
-			"dist/credentials/GithubIssuesOAuth2Api.credentials.js"
+			"dist/credentials/TargetprocessApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/GithubIssues/GithubIssues.node.js",
-			"dist/nodes/Example/Example.node.js"
+			"dist/nodes/Targetprocess/Targetprocess.node.js",
+			"dist/nodes/Targetprocess/TargetprocessTrigger.node.js"
 		]
 	},
 	"devDependencies": {
 		"@n8n/node-cli": "*",
 		"eslint": "9.32.0",
+		"n8n-workflow": "^2.2.1",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
 		"typescript": "5.9.2"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
+	},
+	"dependencies": {
 	}
 }
