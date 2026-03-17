@@ -1,4 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
+import { projectIdProperty, releaseIdProperty } from '../shared/commonProperties';
 
 export const buildDescription: INodeProperties[] = [
 	{
@@ -84,77 +85,20 @@ export const buildDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Project Name or ID',
-		name: 'projectId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		required: true,
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Project...',
-				typeOptions: {
-					searchListMethod: 'getProjects',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...projectIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['build'],
 				operation: ['create'],
-			},
-		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Project.Id',
 			},
 		},
 	},
 	{
-		displayName: 'Release Name or ID',
-		name: 'releaseId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Release...',
-				typeOptions: {
-					searchListMethod: 'getReleases',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...releaseIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['build'],
 				operation: ['create'],
-			},
-		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Release.Id',
 			},
 		},
 	},

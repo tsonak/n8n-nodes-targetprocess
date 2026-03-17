@@ -32,6 +32,7 @@ export class Targetprocess implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Interact with Targetprocess API',
+		usableAsTool: true,
 		defaults: {
 			name: 'Targetprocess',
 		},

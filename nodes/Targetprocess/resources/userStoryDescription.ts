@@ -1,4 +1,11 @@
 import type { INodeProperties } from 'n8n-workflow';
+import {
+	descriptionProperty,
+	featureIdProperty,
+	iterationIdProperty,
+	projectIdProperty,
+	releaseIdProperty,
+} from '../shared/commonProperties';
 
 export const userStoryDescription: INodeProperties[] = [
 	{
@@ -114,206 +121,57 @@ export const userStoryDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Project Name or ID',
-		name: 'projectId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		required: true,
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Project...',
-				typeOptions: {
-					searchListMethod: 'getProjects',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...projectIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['userStory'],
 				operation: ['create'],
 			},
 		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Project.Id',
-			},
-		},
 	},
 	{
-		displayName: 'Project Name or ID',
-		name: 'projectId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Project...',
-				typeOptions: {
-					searchListMethod: 'getProjects',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...projectIdProperty,
+		required: false,
 		displayOptions: {
 			show: {
 				resource: ['userStory'],
 				operation: ['update'],
 			},
 		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Project.Id',
-			},
-		},
 	},
 	{
-		displayName: 'Description',
-		name: 'description',
-		type: 'string',
+		...descriptionProperty,
 		displayOptions: {
 			show: {
 				resource: ['userStory'],
 				operation: ['create', 'update'],
 			},
 		},
-		default: '',
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Description',
-			},
-		},
 	},
 	{
-		displayName: 'Iteration Name or ID',
-		name: 'iterationId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select an Iteration...',
-				typeOptions: {
-					searchListMethod: 'getIterations',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...iterationIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['userStory'],
 				operation: ['create', 'update'],
 			},
 		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Iteration.Id',
-			},
-		},
 	},
 	{
-		displayName: 'Release Name or ID',
-		name: 'releaseId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Release...',
-				typeOptions: {
-					searchListMethod: 'getReleases',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...releaseIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['userStory'],
 				operation: ['create', 'update'],
 			},
 		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Release.Id',
-			},
-		},
 	},
 	{
-		displayName: 'Feature Name or ID',
-		name: 'featureId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Feature...',
-				typeOptions: {
-					searchListMethod: 'getFeatures',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...featureIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['userStory'],
 				operation: ['create', 'update'],
-			},
-		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Feature.Id',
 			},
 		},
 	},

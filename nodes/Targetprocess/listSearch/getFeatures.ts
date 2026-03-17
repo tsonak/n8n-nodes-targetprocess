@@ -1,25 +1,9 @@
-import type {
-	ILoadOptionsFunctions,
-	INodeListSearchItems,
-	INodeListSearchResult,
-} from 'n8n-workflow';
-import { targetprocessApiRequest } from '../shared/transport';
+import type { ILoadOptionsFunctions, INodeListSearchResult } from 'n8n-workflow';
+import { targetprocessListSearch } from '../shared/transport';
 
 export async function getFeatures(
 	this: ILoadOptionsFunctions,
 	filter?: string,
 ): Promise<INodeListSearchResult> {
-	const qs: any = {
-		take: 100,
-		where: filter ? `Name contains '${filter}'` : undefined,
-	};
-
-	const responseData = await targetprocessApiRequest.call(this, 'GET', '/Features', {}, qs);
-
-	const results: INodeListSearchItems[] = (responseData.Items || []).map((item: any) => ({
-		name: item.Name,
-		value: item.Id,
-	}));
-
-	return { results };
+	return await targetprocessListSearch.call(this, '/Features', filter);
 }

@@ -4,7 +4,9 @@ import type {
 	ILoadOptionsFunctions,
 	JsonObject,
 	IHttpRequestMethods,
-	IRequestOptions,
+	IHttpRequestOptions,
+	INodeListSearchResult,
+	INodeListSearchItems,
 } from 'n8n-workflow';
 
 export async function targetprocessApiRequest(
@@ -14,24 +16,22 @@ export async function targetprocessApiRequest(
 	body: any = {},
 	qs: JsonObject = {},
 	uri?: string,
-	_option: JsonObject = {},
 ): Promise<any> {
 	const credentials = await this.getCredentials('targetprocessApi');
 	const account = credentials.account as string;
 
-	const options: IRequestOptions = {
+	const options: IHttpRequestOptions = {
 		method,
-		uri: uri || `https://${account}.tpondemand.com/api/v1${endpoint}`,
+		url: uri || `https://${account}.tpondemand.com/api/v1${endpoint}`,
 		qs,
 		body,
-		json: true,
 	};
 
-	if (Object.keys(body).length === 0) {
+	if (Object.keys(body as JsonObject).length === 0) {
 		delete options.body;
 	}
 
-	return await this.helpers.requestWithAuthentication.call(this, 'targetprocessApi', options);
+	return await this.helpers.httpRequestWithAuthentication.call(this, 'targetprocessApi', options);
 }
 
 export async function targetprocessApiRequestAllItems(
@@ -56,4 +56,28 @@ export async function targetprocessApiRequestAllItems(
 	} while (responseData.Next);
 
 	return returnData;
+}
+
+export async function targetprocessListSearch(
+	this: ILoadOptionsFunctions,
+	endpoint: string,
+	filter?: string,
+): Promise<INodeListSearchResult> {
+	const qs: JsonObject = {
+		take: 100,
+	};
+
+	if (filter) {
+		qs.where = `Name contains '${filter}'`;
+	}
+
+	const responseData = await targetprocessApiRequest.call(this, 'GET', endpoint, {}, qs);
+
+	const items = (responseData.Items as Array<{ Name: string; Id: number }>) || [];
+	const results: INodeListSearchItems[] = items.map((item) => ({
+		name: item.Name,
+		value: item.Id,
+	}));
+
+	return { results };
 }

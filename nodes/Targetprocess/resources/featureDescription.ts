@@ -1,4 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
+import { descriptionProperty, projectIdProperty } from '../shared/commonProperties';
 
 export const featureDescription: INodeProperties[] = [
 	{
@@ -84,58 +85,20 @@ export const featureDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Project Name or ID',
-		name: 'projectId',
-		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
-		required: true,
-		modes: [
-			{
-				displayName: 'List',
-				name: 'list',
-				type: 'list',
-				placeholder: 'Select a Project...',
-				typeOptions: {
-					searchListMethod: 'getProjects',
-					searchFilterRequired: true,
-					searchable: true,
-				},
-			},
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'string',
-				placeholder: '123',
-			},
-		],
+		...projectIdProperty,
 		displayOptions: {
 			show: {
 				resource: ['feature'],
 				operation: ['create'],
-			},
-		},
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Project.Id',
 			},
 		},
 	},
 	{
-		displayName: 'Description',
-		name: 'description',
-		type: 'string',
+		...descriptionProperty,
 		displayOptions: {
 			show: {
 				resource: ['feature'],
 				operation: ['create'],
-			},
-		},
-		default: '',
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Description',
 			},
 		},
 	},

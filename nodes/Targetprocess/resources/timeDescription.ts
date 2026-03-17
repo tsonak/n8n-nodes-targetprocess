@@ -1,4 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
+import { descriptionProperty } from '../shared/commonProperties';
 
 export const timeDescription: INodeProperties[] = [
 	{
@@ -105,20 +106,11 @@ export const timeDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Description',
-		name: 'description',
-		type: 'string',
+		...descriptionProperty,
 		displayOptions: {
 			show: {
 				resource: ['time'],
 				operation: ['create'],
-			},
-		},
-		default: '',
-		routing: {
-			send: {
-				type: 'body',
-				property: 'Description',
 			},
 		},
 	},
