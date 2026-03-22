@@ -14,6 +14,7 @@ export class TargetprocessTrigger implements INodeType {
 		group: ['trigger'],
 		version: 1,
 		description: 'Handle Targetprocess webhooks',
+		usableAsTool: true,
 		defaults: {
 			name: 'Targetprocess Trigger',
 		},
